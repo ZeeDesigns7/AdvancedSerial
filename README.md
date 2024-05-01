@@ -51,8 +51,7 @@ void setup() {
 void loop() {
   // Continuously perform tasks
 }
-```cpp
-
+```
 
 # Contribution
 Contributions to the library are welcome. Please feel free to fork the repository, make changes, and submit pull requests.
