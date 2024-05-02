@@ -1,5 +1,3 @@
-//AdvancedSerial.h
-
 #ifndef AdvancedSerial_h
 #define AdvancedSerial_h
 
@@ -47,50 +45,35 @@ public:
         println();
     }
 
-    // Overload for printHexChar functionality
-    void print(const char* label, const char* encryptedData, byte dataLength) {
+    // Overload for printing character array as hexadecimal bytes
+    void print(const char* label, const char* str, byte dataLength) {
         print(label);
-        for (int i = 0; i < dataLength; i++) {
-            byte byteValue = (byte)encryptedData[i]; // Cast to byte to handle unsigned data
-            if (byteValue < 16) {
-                print("0"); // Print leading zero for single digit hex numbers
-            }
-            print(byteValue, HEX); // Print byte as hex
-            print(" "); // Print space for readability between hex values
-        }
-    }
-
-    // Overload for printHexChar functionality with println
-    void println(const char* label, const char* encryptedData, byte dataLength) {
-        print(label, encryptedData, dataLength);
-        println(); // New line after printing all hex values
-    }
-
-    // Overload for printText functionality
-    void println(const char* label, const char* text) {
-        char buffer[256]; // Ensure the buffer is sized appropriately for your messages
-        snprintf(buffer, sizeof(buffer), "%s%s", label, text);
-        println(buffer);
-    }
-
-    // Overload for printing string as hexadecimal bytes
-    void println(const char* label, const char* str, bool hex) {
-        print(label);
-        if (hex) {
-            for (size_t i = 0; str[i] != '\0'; i++) {
-                byte byteValue = (byte)str[i];
-                if (byteValue < 16) {
-                    print("0");
-                }
-                print(byteValue, HEX);
+        for (byte i = 0; i < dataLength; i++) {
+            byte byteValue = (byte)str[i];
+            print(byteValue, HEX);
+            if (i < dataLength - 1) {
                 print(" ");
             }
-            println();
-        } else {
-            println(str);
         }
     }
 
+    // Overload for printing character array as hexadecimal bytes with println
+    void println(const char* label, const char* str, byte dataLength) {
+        print(label, str, dataLength);
+        println();
+    }
+
+    // Overload for printing character array as plain text
+    void print(const char* label, const char* str) {
+        print(label);
+        print(str);
+    }
+
+    // Overload for printing character array as plain text with println
+    void println(const char* label, const char* str) {
+        print(label, str);
+        println();
+    }
 
     void print(const char* str); // For printing strings directly
     void print(byte value, bool hex = false); // Overload for byte type
